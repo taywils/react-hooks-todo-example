@@ -10,15 +10,26 @@ const App = () => {
   const [todoItems, setTodoItems] = useState([]);
 
   useEffect(() => {
-    const data = localStorage.getItem("todos");
-    if (data !== null) {
-      setTodoItems(JSON.parse(data));
+    const localTodoItems = localStorage.getItem("todos");
+    if (localTodoItems !== null) {
+      setTodoItems(JSON.parse(localTodoItems));
+    }
+  }, []);
+
+  useEffect(() => {
+    const localShowCompleted = localStorage.getItem("showCompleted");
+    if (localShowCompleted !== null) {
+      setShowCompleted(JSON.parse(localShowCompleted));
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todoItems));
   }, [todoItems]);
+
+  useEffect(() => {
+    localStorage.setItem("showCompleted", JSON.stringify(showCompleted));
+  }, [showCompleted]);
 
   const createNewTodo = task => {
     if (!todoItems.find(item => item.action === task)) {
