@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoBanner from "./TodoBanner";
 import TodoRow from "./TodoRow";
 import TodoCreator from "./TodoCreator";
@@ -7,12 +7,18 @@ import VisibilityControl from "./VisibilityControl";
 const App = () => {
   const [userName] = useState("Adam");
   const [showCompleted, setShowCompleted] = useState(true);
-  const [todoItems, setTodoItems] = useState([
-    { action: "Buy Flowers", done: false },
-    { action: "Get Shoes", done: false },
-    { action: "Collect Tickets", done: false },
-    { action: "Call Joe", done: false }
-  ]);
+  const [todoItems, setTodoItems] = useState([]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("todos");
+    if (data !== null) {
+      setTodoItems(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todoItems));
+  }, [todoItems]);
 
   const createNewTodo = task => {
     if (!todoItems.find(item => item.action === task)) {
