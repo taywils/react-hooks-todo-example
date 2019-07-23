@@ -32,10 +32,12 @@ const App = () => {
   }, [showCompleted]);
 
   const createNewTodo = task => {
-    setTodoItems([
-      ...todoItems,
-      { tableId: btoa(`${task}|${Date.now()}`), action: task, done: false }
-    ]);
+    if (task !== undefined && task !== null && task.trim().length > 0) {
+      setTodoItems([
+        ...todoItems,
+        { tableId: btoa(`${task}|${Date.now()}`), action: task, done: false }
+      ]);
+    }
   };
 
   const deleteTodo = todo =>
