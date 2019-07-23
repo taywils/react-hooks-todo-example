@@ -37,6 +37,9 @@ const App = () => {
     }
   };
 
+  const deleteTodo = todo =>
+    setTodoItems(todoItems.filter(item => item.action !== todo.action));
+
   const toggleTodo = todo =>
     setTodoItems(
       todoItems.map(item =>
@@ -48,7 +51,12 @@ const App = () => {
     todoItems
       .filter(item => item.done === doneValue)
       .map(item => (
-        <TodoRow key={item.action} item={item} callback={toggleTodo} />
+        <TodoRow
+          key={item.action}
+          item={item}
+          onToggle={toggleTodo}
+          onClick={deleteTodo}
+        />
       ));
 
   const finishedTodoRows = () => todoTableRows(true);
@@ -64,6 +72,7 @@ const App = () => {
             <tr>
               <th>Description</th>
               <th>Done</th>
+              <th>Remove?</th>
             </tr>
           </thead>
           <tbody>{incompleteTodoRows()}</tbody>
@@ -82,6 +91,7 @@ const App = () => {
               <tr>
                 <th>Description</th>
                 <th>Done</th>
+                <th>Remove?</th>
               </tr>
             </thead>
             <tbody>{finishedTodoRows()}</tbody>

@@ -7,8 +7,16 @@ export default props => (
       <input
         type="checkbox"
         checked={props.item.done}
-        onChange={() => props.callback(props.item)}
+        onChange={() => props.onToggle(props.item)}
       />
+    </td>
+    <td>
+      <button
+        className="btn btn-sm btn-danger mt-1"
+        onClick={() => props.onClick(props.item)}
+      >
+        Remove
+      </button>
     </td>
   </tr>
 );
