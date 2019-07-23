@@ -34,17 +34,17 @@ const App = () => {
   const createNewTodo = task => {
     setTodoItems([
       ...todoItems,
-      { id: btoa(`${task}|${Date.now()}`), action: task, done: false }
+      { tableId: btoa(`${task}|${Date.now()}`), action: task, done: false }
     ]);
   };
 
   const deleteTodo = todo =>
-    setTodoItems(todoItems.filter(item => item.id !== todo.id));
+    setTodoItems(todoItems.filter(item => item.tableId !== todo.tableId));
 
   const toggleTodo = todo =>
     setTodoItems(
       todoItems.map(item =>
-        item.id === todo.id ? { ...item, done: !item.done } : item
+        item.tableId === todo.tableId ? { ...item, done: !item.done } : item
       )
     );
 
