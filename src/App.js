@@ -32,18 +32,19 @@ const App = () => {
   }, [showCompleted]);
 
   const createNewTodo = task => {
-    if (!todoItems.find(item => item.action === task)) {
-      setTodoItems([...todoItems, { action: task, done: false }]);
-    }
+    setTodoItems([
+      ...todoItems,
+      { id: btoa(`${task}|${Date.now()}`), action: task, done: false }
+    ]);
   };
 
   const deleteTodo = todo =>
-    setTodoItems(todoItems.filter(item => item.action !== todo.action));
+    setTodoItems(todoItems.filter(item => item.id !== todo.id));
 
   const toggleTodo = todo =>
     setTodoItems(
       todoItems.map(item =>
-        item.action === todo.action ? { ...item, done: !item.done } : item
+        item.id === todo.id ? { ...item, done: !item.done } : item
       )
     );
 
